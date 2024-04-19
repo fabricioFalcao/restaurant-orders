@@ -45,26 +45,3 @@ class MenuBuilder:
 
     def menu_data_dishes(self):
         return sorted(list(self.menu_data.dishes), key=lambda dish: dish.name)
-
-    # def get_main_menu(self, restriction=None) -> List[Dict]:
-    #     data = self.read()
-    #     restrictions_list = restriction_map()
-    #     dish_dict = {}
-
-    #     for ingredient in data:
-    #         dish_name = ingredient["dish"]
-    #         dish_price = float(ingredient["price"])
-    #         ingredient_name = ingredient["ingredient"]
-    #         restrictions = restrictions_list[ingredient_name]
-
-    #         if dish_name not in dish_dict:
-    #             dish_dict[dish_name] = {
-    #                 "dish_name": dish_name,
-    #                 "ingredients": [ingredient_name],
-    #                 "price": dish_price,
-    #                 "restrictions": set(restrictions),
-    #             }
-
-    #         dish_dict[dish_name]["ingredients"].append(ingredient_name)
-
-    #     return list(dish_dict.values())
