@@ -38,6 +38,9 @@ class MenuBuilder:
             }
             for dish in dishes
             if restriction not in dish.get_restrictions()
+            and InventoryMapping.check_recipe_availability(
+                self.inventory, dish.recipe
+            )
         ]
 
     def menu_data_dishes(self):
