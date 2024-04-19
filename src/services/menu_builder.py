@@ -1,7 +1,9 @@
+import csv
 from typing import Dict, List
 
 from services.inventory_control import InventoryMapping
 from services.menu_data import MenuData
+from models.ingredient import restriction_map
 
 DATA_PATH = "data/menu_base_data.csv"
 INVENTORY_PATH = "data/inventory_base_data.csv"
@@ -26,4 +28,40 @@ class MenuBuilder:
 
     # Req 4
     def get_main_menu(self, restriction=None) -> List[Dict]:
-        pass
+        dishes = self.menu_data_dishes()
+        return [
+            {
+                "dish_name": dish.name,
+                "ingredients": dish.get_ingredients(),
+                "price": dish.price,
+                "restrictions": dish.get_restrictions(),
+            }
+            for dish in dishes
+            if restriction not in dish.get_restrictions()
+        ]
+
+    def menu_data_dishes(self):
+        return sorted(list(self.menu_data.dishes), key=lambda dish: dish.name)
+
+    # def get_main_menu(self, restriction=None) -> List[Dict]:
+    #     data = self.read()
+    #     restrictions_list = restriction_map()
+    #     dish_dict = {}
+
+    #     for ingredient in data:
+    #         dish_name = ingredient["dish"]
+    #         dish_price = float(ingredient["price"])
+    #         ingredient_name = ingredient["ingredient"]
+    #         restrictions = restrictions_list[ingredient_name]
+
+    #         if dish_name not in dish_dict:
+    #             dish_dict[dish_name] = {
+    #                 "dish_name": dish_name,
+    #                 "ingredients": [ingredient_name],
+    #                 "price": dish_price,
+    #                 "restrictions": set(restrictions),
+    #             }
+
+    #         dish_dict[dish_name]["ingredients"].append(ingredient_name)
+
+    #     return list(dish_dict.values())
